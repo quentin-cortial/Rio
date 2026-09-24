@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<audio id="sonOuverture" src="ouverture.mp3"></audio>
 <style>
 * {
     box-sizing: border-box;
@@ -155,4 +155,19 @@ body {
 </div>
 
 </body>
+    <script>
+function ouvrirEnveloppe() {
+
+    const enveloppe = document.querySelector(".enveloppe");
+    const son = document.querySelector("#sonOuverture");
+
+    enveloppe.classList.toggle("ouverte");
+
+    // Jouer le son uniquement à l'ouverture
+    if (enveloppe.classList.contains("ouverte")) {
+        son.currentTime = 0;
+        son.play();
+    }
+}
+    </script>
 </html>
