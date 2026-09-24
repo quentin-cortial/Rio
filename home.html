@@ -41,7 +41,7 @@ body {
 }
 
 /* Les deux rabats inférieurs */
-.corps::before,
+
 .corps::after {
     content: "";
     position: absolute;
@@ -111,11 +111,13 @@ body {
 /* Quand on clique */
 .enveloppe.ouverte .rabat {
     transform: rotateX(180deg);
+    z-index: 1;
 }
 
 .enveloppe.ouverte .lettre {
     transform: translateY(-120px);
     visibility: visible;
+    z-index: 2;
 }
 
 /* Petit texte */
