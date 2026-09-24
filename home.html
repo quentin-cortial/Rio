@@ -2,421 +2,152 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
-
-<title>💌 Mon enveloppe</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-
 * {
     box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent;
 }
 
 body {
     margin: 0;
-    width: 100%;
-    height: 100vh;
-    height: 100dvh;
-
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-
-    background:
-        radial-gradient(circle at center,
-        #fff8ed,
-        #e8d4b5);
-
+    background: #f1e7d3;
     font-family: Arial, sans-serif;
-
-    overflow: hidden;
 }
 
-/* =========================
-   CONTENEUR
-========================= */
-
-.scene {
-    position: relative;
-
-    width: 90vw;
-    max-width: 420px;
-
-    height: 360px;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    perspective: 1200px;
-}
-
-/* =========================
-   ENVELOPPE
-========================= */
-
+/* Zone de l'enveloppe */
 .enveloppe {
     position: relative;
-
-    width: 100%;
-    aspect-ratio: 1.55;
-
+    width: 360px;
+    height: 240px;
     cursor: pointer;
-
-    transform-style: preserve-3d;
-
-    transition: transform .3s ease;
+    perspective: 1000px;
 }
 
-.enveloppe:active {
-    transform: scale(.97);
-}
-
-/* =========================
-   LETTRE
-========================= */
-
-.lettre {
+/* Corps de l'enveloppe */
+.corps {
     position: absolute;
-
-    left: 7%;
-    bottom: 8%;
-
-    width: 86%;
-    height: 85%;
-
-    background: #fff;
-
+    bottom: 0;
+    width: 100%;
+    height: 180px;
+    background: #e8b96d;
     border-radius: 4px;
-
-    padding: 25px 20px;
-
-    text-align: center;
-
-    z-index: 2;
-
-    box-shadow:
-        0 5px 15px rgba(0,0,0,.15);
-
-    transform:
-        translateY(0)
-        translateZ(5px);
-
-    transition:
-        transform 1.2s cubic-bezier(.2,.8,.2,1);
-
     overflow: hidden;
+    box-shadow: 0 12px 25px rgba(0,0,0,0.2);
 }
 
-.lettre::before {
+/* Les deux rabats inférieurs */
+.corps::before,
+.corps::after {
     content: "";
-
     position: absolute;
-opacity: 0;
-    visibility: hidden;
-
-    inset: 0;
-
-    background:
-        linear-gradient(
-            transparent 95%,
-            rgba(0,0,0,.04) 95%
-        );
-
-    background-size: 100% 25px;
-
-    pointer-events: none;
+    bottom: 0;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    z-index: 3;
 }
 
-.lettre h1 {
-    position: relative;
+.corps::before {
+    left: 0;
+    border-width: 0 180px 120px 0;
+    border-color: transparent #dca85e transparent transparent;
+}
 
-    margin: 5px 0 15px;
+.corps::after {
+    right: 0;
+    border-width: 120px 180px 0 0;
+    border-color: #dca85e transparent transparent transparent;
+}
 
-    font-size: clamp(24px, 7vw, 34px);
+/* Lettre */
+.lettre {
+    visibility: hidden;
+    position: absolute;
+    z-index: 2;
+    left: 25px;
+    bottom: 20px;
+    width: 310px;
+    height: 180px;
+    background: white;
+    padding: 25px;
+    text-align: center;
+    border-radius: 3px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
 
-    color: #333;
+    transform: translateY(0);
+    transition: transform 1s ease 0.3s;
+}
+
+.lettre h2 {
+    margin: 10px 0;
+    color: #444;
 }
 
 .lettre p {
-    position: relative;
-
-    font-size: clamp(15px, 4.5vw, 19px);
-
-    line-height: 1.5;
-
-    color: #555;
+    color: #666;
 }
 
-/* =========================
-   CORPS
-========================= */
-
-.corps {
-    position: absolute;
-
-    left: 0;
-    bottom: 0;
-
-    width: 100%;
-    height: 72%;
-
-    background:
-        linear-gradient(
-            135deg,
-            #efc27d,
-            #dca55d
-        );
-
-    border-radius: 5px;
-
-    z-index: 3;
-
-    box-shadow:
-        0 15px 30px rgba(0,0,0,.25);
-
-    overflow: hidden;
-}
-
-/* =========================
-   RABAT GAUCHE
-========================= */
-
-.rabat-gauche {
-    position: absolute;
-
-    left: 0;
-    bottom: 0;
-
-    width: 0;
-    height: 0;
-
-    border-top: 130px solid transparent;
-    border-bottom: 0 solid transparent;
-    border-left: 45vw solid #d39a52;
-
-    z-index: 4;
-}
-
-/* =========================
-   RABAT DROIT
-========================= */
-
-.rabat-droit {
-    position: absolute;
-
-    right: 0;
-    bottom: 0;
-
-    width: 0;
-    height: 0;
-
-    border-top: 130px solid transparent;
-    border-right: 45vw solid #d39a52;
-
-    z-index: 4;
-}
-
-/* =========================
-   RABAT SUPÉRIEUR
-========================= */
-
+/* Rabat supérieur */
 .rabat {
     position: absolute;
-
-    top: 0;
+    top: 60px;
     left: 0;
-
     width: 0;
     height: 0;
-
-    border-left: 45vw solid transparent;
-    border-right: 45vw solid transparent;
-    border-top: 135px solid #f2c985;
-
+    border-left: 180px solid transparent;
+    border-right: 180px solid transparent;
+    border-top: 120px solid #f0c47c;
     transform-origin: top center;
-
-    transform:
-        rotateX(0deg);
-
-    transition:
-        transform 1s cubic-bezier(.2,.8,.2,1);
-
-    z-index: 6;
-
-    filter:
-        drop-shadow(0 3px 3px rgba(0,0,0,.12));
+    transform: rotateX(0deg);
+    transition: transform 1s ease;
+    z-index: 4;
 }
 
-/* =========================
-   CACHEt
-========================= */
-
-.cachet {
-    position: absolute;
-
-    left: 50%;
-    top: 52%;
-
-    transform:
-        translate(-50%, -50%);
-
-    width: 55px;
-    height: 55px;
-
-    border-radius: 50%;
-
-    background:
-        radial-gradient(
-            circle,
-            #b72c38,
-            #7d1823
-        );
-
-    z-index: 7;
-
-    box-shadow:
-        0 3px 7px rgba(0,0,0,.3);
-
-    transition:
-        opacity .4s ease,
-        transform .5s ease;
-}
-
-.cachet::after {
-    content: "♥";
-
-    position: absolute;
-
-    top: 50%;
-    left: 50%;
-
-    transform:
-        translate(-50%, -50%);
-
-    color: #f8d6d6;
-
-    font-size: 22px;
-}
-
-/* =========================
-   OUVERTURE
-========================= */
-
+/* Quand on clique */
 .enveloppe.ouverte .rabat {
-    transform:
-        rotateX(180deg);
-}
-
-.enveloppe.ouverte .cachet {
-    opacity: 0;
-
-    transform:
-        translate(-50%, -50%)
-        scale(.5);
+    transform: rotateX(180deg);
 }
 
 .enveloppe.ouverte .lettre {
-    transform:
-        translateY(-58%)
-        translateZ(20px);
+    transform: translateY(-120px);
+    visibility: visible;
 }
 
-/* =========================
-   TEXTE
-========================= */
-
-.instruction {
+/* Petit texte */
+.instructions {
     position: absolute;
-
-    bottom: 5px;
-
+    bottom: -55px;
     width: 100%;
-
     text-align: center;
-
-    font-size: 14px;
-
     color: #555;
-
-    animation:
-        pulse 2s infinite;
+    font-size: 14px;
 }
-
-@keyframes pulse {
-
-    0%,100% {
-        opacity: .5;
-    }
-
-    50% {
-        opacity: 1;
-    }
-}
-
 </style>
 </head>
 
 <body>
 
-<div class="scene">
+<div class="enveloppe" onclick="this.classList.toggle('ouverte')">
 
-    <div
-        class="enveloppe"
-        onclick="ouvrirEnveloppe()"
-    >
-
-        <!-- LETTRE -->
-        <div class="lettre">
-
-            <h1>💌 Bonjour !</h1>
-
-            <p>
-                Ceci est mon message secret.
-            </p>
-
-            <p>
-                Tu peux remplacer ce texte
-                par ce que tu veux ❤️
-            </p>
-
-        </div>
-
-        <!-- CORPS -->
-        <div class="corps"></div>
-
-        <!-- RABATS BAS -->
-        <div class="rabat-gauche"></div>
-        <div class="rabat-droit"></div>
-
-        <!-- RABAT SUPÉRIEUR -->
-        <div class="rabat"></div>
-
-        <!-- CACHEt -->
-        <div class="cachet"></div>
-
+    <div class="lettre">
+        <h2>💌 Surprise !</h2>
+        <p>Une petite lettre vient de sortir de l'enveloppe.</p>
     </div>
 
-    <div class="instruction">
-        👆 Appuie sur l'enveloppe
+    <div class="corps"></div>
+
+    <div class="rabat"></div>
+
+    <div class="instructions">
+        Cliquez sur l'enveloppe
     </div>
 
 </div>
-
-<script>
-
-function ouvrirEnveloppe() {
-
-    const enveloppe =
-        document.querySelector(".enveloppe");
-
-    enveloppe.classList.toggle("ouverte");
-
-}
-
-</script>
 
 </body>
 </html>
