@@ -4,26 +4,38 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>Enveloppe</title>
+
 <style>
 * {
     box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
 }
 
 body {
     margin: 0;
     min-height: 100vh;
+    min-height: 100dvh;
+
     display: flex;
     justify-content: center;
     align-items: center;
+
     background: #f1e7d3;
     font-family: Arial, sans-serif;
+
+    overflow: hidden;
 }
 
-/* Zone de l'enveloppe */
+/* Conteneur */
 .enveloppe {
     position: relative;
-    width: 360px;
-    height: 240px;
+
+    width: 88vw;
+    max-width: 420px;
+
+    aspect-ratio: 1.5 / 1;
+
     cursor: pointer;
     perspective: 1000px;
 }
@@ -32,120 +44,124 @@ body {
 .corps {
     position: absolute;
     bottom: 0;
+    left: 0;
+
     width: 100%;
-    height: 180px;
+    height: 75%;
+
     background: #e8b96d;
-    border-radius: 4px;
+
+    border-radius: 5px;
+
+    box-shadow:
+        0 10px 25px rgba(0,0,0,0.2);
+
     overflow: hidden;
-    box-shadow: 0 12px 25px rgba(0,0,0,0.2);
 }
 
-/* Les deux rabats inférieurs */
+/* Rabats */
 .corps::before,
 .corps::after {
     content: "";
+
     position: absolute;
     bottom: 0;
+
     width: 0;
     height: 0;
+
     border-style: solid;
+
     z-index: 3;
 }
 
 .corps::before {
     left: 0;
-    border-width: 0 180px 120px 0;
-    border-color: transparent #dca85e transparent transparent;
+
+    border-width:
+        0
+        calc(44vw)
+        calc(30vw)
+        0;
+
+    border-color:
+        transparent
+        #dca85e
+        transparent
+        transparent;
 }
 
 .corps::after {
     right: 0;
-    border-width: 120px 180px 0 0;
-    border-color: #dca85e transparent transparent transparent;
+
+    border-width:
+        calc(30vw)
+        calc(44vw)
+        0
+        0;
+
+    border-color:
+        #dca85e
+        transparent
+        transparent
+        transparent;
 }
 
 /* Lettre */
 .lettre {
     position: absolute;
+
     z-index: 2;
-    left: 25px;
-    bottom: 20px;
-    width: 310px;
-    height: 180px;
+
+    left: 7%;
+    bottom: 8%;
+
+    width: 86%;
+    height: 70%;
+
     background: white;
-    padding: 25px;
+
+    padding: 20px;
+
     text-align: center;
-    border-radius: 3px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+
+    border-radius: 4px;
+
+    box-shadow:
+        0 4px 12px rgba(0,0,0,0.15);
 
     transform: translateY(0);
-    transition: transform 1s ease 0.3s;
+
+    transition:
+        transform 1s ease 0.25s;
 }
 
 .lettre h2 {
     margin: 10px 0;
+
+    font-size: clamp(20px, 6vw, 30px);
+
     color: #444;
 }
 
 .lettre p {
+    margin: 10px 0;
+
+    font-size: clamp(14px, 4vw, 18px);
+
     color: #666;
 }
 
 /* Rabat supérieur */
 .rabat {
     position: absolute;
-    top: 60px;
+
+    top: 0;
     left: 0;
+
     width: 0;
     height: 0;
-    border-left: 180px solid transparent;
-    border-right: 180px solid transparent;
-    border-top: 120px solid #f0c47c;
-    transform-origin: top center;
-    transform: rotateX(0deg);
-    transition: transform 1s ease;
-    z-index: 4;
-}
 
-/* Quand on clique */
-.enveloppe.ouverte .rabat {
-    transform: rotateX(180deg);
-}
-
-.enveloppe.ouverte .lettre {
-    transform: translateY(-120px);
-}
-
-/* Petit texte */
-.instructions {
-    position: absolute;
-    bottom: -55px;
-    width: 100%;
-    text-align: center;
-    color: #555;
-    font-size: 14px;
-}
-</style>
-</head>
-
-<body>
-
-<div class="enveloppe" onclick="this.classList.toggle('ouverte')">
-
-    <div class="lettre">
-        <h2>💌 Surprise !</h2>
-        <p>Une petite lettre vient de sortir de l'enveloppe.</p>
-    </div>
-
-    <div class="corps"></div>
-
-    <div class="rabat"></div>
-
-    <div class="instructions">
-        Cliquez sur l'enveloppe
-    </div>
-
-</div>
-
-</body>
-</html>
+    border-left: 44vw solid transparent;
+    border-right: 44vw solid transparent;
+    border-top: 30
