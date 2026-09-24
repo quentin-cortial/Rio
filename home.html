@@ -41,7 +41,7 @@ body {
 }
 
 /* Les deux rabats inférieurs */
-
+.corps::before,
 .corps::after {
     content: "";
     position: absolute;
@@ -49,13 +49,13 @@ body {
     width: 0;
     height: 0;
     border-style: solid;
-    z-index: 3;
+    z-index: 2;
     color: blue;
 }
 
 .corps::before {
     left: 0;
-    border-width: 0 180px 120px 0;
+    border-width: 0 0 120px 180px;
     border-color: transparent #dca85e transparent transparent;
 }
 
@@ -69,7 +69,7 @@ body {
 .lettre {
     visibility: hidden;
     position: absolute;
-    z-index: 2;
+    z-index: 1;
     left: 25px;
     bottom: 20px;
     width: 310px;
@@ -106,19 +106,18 @@ body {
     transform-origin: top center;
     transform: rotateX(0deg);
     transition: transform 1s ease;
-    z-index: 4;
+    z-index: 3;
 }
 
 /* Quand on clique */
 .enveloppe.ouverte .rabat {
     transform: rotateX(180deg);
-    z-index: 1;
 }
 
 .enveloppe.ouverte .lettre {
     transform: translateY(-120px);
     visibility: visible;
-    z-index: 2;
+    z-index: 4;
 }
 
 /* Petit texte */
