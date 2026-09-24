@@ -2,11 +2,13 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
 
-<title>Enveloppe</title>
+<title>💌 Mon enveloppe</title>
 
 <style>
+
 * {
     box-sizing: border-box;
     -webkit-tap-highlight-color: transparent;
@@ -14,145 +16,211 @@
 
 body {
     margin: 0;
-    min-height: 100vh;
-    min-height: 100dvh;
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
 
     display: flex;
     justify-content: center;
     align-items: center;
 
-    background: #f1e7d3;
+    background:
+        radial-gradient(circle at center,
+        #fff8ed,
+        #e8d4b5);
+
     font-family: Arial, sans-serif;
 
     overflow: hidden;
 }
 
-/* Conteneur */
+/* =========================
+   CONTENEUR
+========================= */
+
+.scene {
+    position: relative;
+
+    width: 90vw;
+    max-width: 420px;
+
+    height: 360px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    perspective: 1200px;
+}
+
+/* =========================
+   ENVELOPPE
+========================= */
+
 .enveloppe {
     position: relative;
 
-    width: 88vw;
-    max-width: 420px;
-
-    aspect-ratio: 1.5 / 1;
+    width: 100%;
+    aspect-ratio: 1.55;
 
     cursor: pointer;
-    perspective: 1000px;
+
+    transform-style: preserve-3d;
+
+    transition: transform .3s ease;
 }
 
-/* Corps de l'enveloppe */
-.corps {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-
-    width: 100%;
-    height: 75%;
-
-    background: #e8b96d;
-
-    border-radius: 5px;
-
-    box-shadow:
-        0 10px 25px rgba(0,0,0,0.2);
-
-    overflow: hidden;
+.enveloppe:active {
+    transform: scale(.97);
 }
 
-/* Rabats */
-.corps::before,
-.corps::after {
-    content: "";
+/* =========================
+   LETTRE
+========================= */
 
-    position: absolute;
-    bottom: 0;
-
-    width: 0;
-    height: 0;
-
-    border-style: solid;
-
-    z-index: 3;
-}
-
-.corps::before {
-    left: 0;
-
-    border-width:
-        0
-        calc(44vw)
-        calc(30vw)
-        0;
-
-    border-color:
-        transparent
-        #dca85e
-        transparent
-        transparent;
-}
-
-.corps::after {
-    right: 0;
-
-    border-width:
-        calc(30vw)
-        calc(44vw)
-        0
-        0;
-
-    border-color:
-        #dca85e
-        transparent
-        transparent
-        transparent;
-}
-
-/* Lettre */
 .lettre {
     position: absolute;
-
-    z-index: 2;
 
     left: 7%;
     bottom: 8%;
 
     width: 86%;
-    height: 70%;
+    height: 85%;
 
-    background: white;
-
-    padding: 20px;
-
-    text-align: center;
+    background: #fff;
 
     border-radius: 4px;
 
-    box-shadow:
-        0 4px 12px rgba(0,0,0,0.15);
+    padding: 25px 20px;
 
-    transform: translateY(0);
+    text-align: center;
+
+    z-index: 2;
+
+    box-shadow:
+        0 5px 15px rgba(0,0,0,.15);
+
+    transform:
+        translateY(0)
+        translateZ(5px);
 
     transition:
-        transform 1s ease 0.25s;
+        transform 1.2s cubic-bezier(.2,.8,.2,1);
+
+    overflow: hidden;
 }
 
-.lettre h2 {
-    margin: 10px 0;
+.lettre::before {
+    content: "";
 
-    font-size: clamp(20px, 6vw, 30px);
+    position: absolute;
 
-    color: #444;
+    inset: 0;
+
+    background:
+        linear-gradient(
+            transparent 95%,
+            rgba(0,0,0,.04) 95%
+        );
+
+    background-size: 100% 25px;
+
+    pointer-events: none;
+}
+
+.lettre h1 {
+    position: relative;
+
+    margin: 5px 0 15px;
+
+    font-size: clamp(24px, 7vw, 34px);
+
+    color: #333;
 }
 
 .lettre p {
-    margin: 10px 0;
+    position: relative;
 
-    font-size: clamp(14px, 4vw, 18px);
+    font-size: clamp(15px, 4.5vw, 19px);
 
-    color: #666;
+    line-height: 1.5;
+
+    color: #555;
 }
 
-/* Rabat supérieur */
+/* =========================
+   CORPS
+========================= */
+
+.corps {
+    position: absolute;
+
+    left: 0;
+    bottom: 0;
+
+    width: 100%;
+    height: 72%;
+
+    background:
+        linear-gradient(
+            135deg,
+            #efc27d,
+            #dca55d
+        );
+
+    border-radius: 5px;
+
+    z-index: 3;
+
+    box-shadow:
+        0 15px 30px rgba(0,0,0,.25);
+
+    overflow: hidden;
+}
+
+/* =========================
+   RABAT GAUCHE
+========================= */
+
+.rabat-gauche {
+    position: absolute;
+
+    left: 0;
+    bottom: 0;
+
+    width: 0;
+    height: 0;
+
+    border-top: 130px solid transparent;
+    border-bottom: 0 solid transparent;
+    border-left: 45vw solid #d39a52;
+
+    z-index: 4;
+}
+
+/* =========================
+   RABAT DROIT
+========================= */
+
+.rabat-droit {
+    position: absolute;
+
+    right: 0;
+    bottom: 0;
+
+    width: 0;
+    height: 0;
+
+    border-top: 130px solid transparent;
+    border-right: 45vw solid #d39a52;
+
+    z-index: 4;
+}
+
+/* =========================
+   RABAT SUPÉRIEUR
+========================= */
+
 .rabat {
     position: absolute;
 
@@ -162,6 +230,191 @@ body {
     width: 0;
     height: 0;
 
-    border-left: 44vw solid transparent;
-    border-right: 44vw solid transparent;
-    border-top: 30
+    border-left: 45vw solid transparent;
+    border-right: 45vw solid transparent;
+    border-top: 135px solid #f2c985;
+
+    transform-origin: top center;
+
+    transform:
+        rotateX(0deg);
+
+    transition:
+        transform 1s cubic-bezier(.2,.8,.2,1);
+
+    z-index: 6;
+
+    filter:
+        drop-shadow(0 3px 3px rgba(0,0,0,.12));
+}
+
+/* =========================
+   CACHEt
+========================= */
+
+.cachet {
+    position: absolute;
+
+    left: 50%;
+    top: 52%;
+
+    transform:
+        translate(-50%, -50%);
+
+    width: 55px;
+    height: 55px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            #b72c38,
+            #7d1823
+        );
+
+    z-index: 7;
+
+    box-shadow:
+        0 3px 7px rgba(0,0,0,.3);
+
+    transition:
+        opacity .4s ease,
+        transform .5s ease;
+}
+
+.cachet::after {
+    content: "♥";
+
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+
+    transform:
+        translate(-50%, -50%);
+
+    color: #f8d6d6;
+
+    font-size: 22px;
+}
+
+/* =========================
+   OUVERTURE
+========================= */
+
+.enveloppe.ouverte .rabat {
+    transform:
+        rotateX(180deg);
+}
+
+.enveloppe.ouverte .cachet {
+    opacity: 0;
+
+    transform:
+        translate(-50%, -50%)
+        scale(.5);
+}
+
+.enveloppe.ouverte .lettre {
+    transform:
+        translateY(-58%)
+        translateZ(20px);
+}
+
+/* =========================
+   TEXTE
+========================= */
+
+.instruction {
+    position: absolute;
+
+    bottom: 5px;
+
+    width: 100%;
+
+    text-align: center;
+
+    font-size: 14px;
+
+    color: #555;
+
+    animation:
+        pulse 2s infinite;
+}
+
+@keyframes pulse {
+
+    0%,100% {
+        opacity: .5;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="scene">
+
+    <div
+        class="enveloppe"
+        onclick="ouvrirEnveloppe()"
+    >
+
+        <!-- LETTRE -->
+        <div class="lettre">
+
+            <h1>💌 Bonjour !</h1>
+
+            <p>
+                Ceci est mon message secret.
+            </p>
+
+            <p>
+                Tu peux remplacer ce texte
+                par ce que tu veux ❤️
+            </p>
+
+        </div>
+
+        <!-- CORPS -->
+        <div class="corps"></div>
+
+        <!-- RABATS BAS -->
+        <div class="rabat-gauche"></div>
+        <div class="rabat-droit"></div>
+
+        <!-- RABAT SUPÉRIEUR -->
+        <div class="rabat"></div>
+
+        <!-- CACHEt -->
+        <div class="cachet"></div>
+
+    </div>
+
+    <div class="instruction">
+        👆 Appuie sur l'enveloppe
+    </div>
+
+</div>
+
+<script>
+
+function ouvrirEnveloppe() {
+
+    const enveloppe =
+        document.querySelector(".enveloppe");
+
+    enveloppe.classList.toggle("ouverte");
+
+}
+
+</script>
+
+</body>
+</html>
